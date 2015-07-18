@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s1 = br.readLine();
+        String res = soundex(s1);
+        System.out.println(s1 + ": " + res)
+        
+    }
+    public static String soundex(String s) 
+    {
+    	char start = s.charAt(0);
+        char [] new_s = s.toLowerCase().toCharArray();
+        for(int i = 0; i < new_s.length; i++)
+        {
+            switch(new_s[i])
+            {
+                case 'b':
+                case 'f':
+                case 'p':
+                case 'v': { new_s[i] = '1'; break; }
+
+                case 'c':
+                case 'g':
+                case 'j':
+                case 'k':
+                case 'q':
+                case 's':
+                case 'x':
+                case 'z': { new_s[i] = '2'; break; }
+
+                case 'd':
+                case 't': { new_s[i] = '3'; break; }
+
+                case 'l': { new_s[i] = '4'; break; }
+
+                case 'm':
+                case 'n': { new_s[i] = '5'; break; }
+
+                case 'r': { new_s[i] = '6'; break; }
+
+                default:  { new_s[i] = '0'; break; }
+            }
+        }
+        String res = "" + start;
+        for(int j = 1; j < new_s.length; j++)
+        {
+            if(new_s[j] != new_s[j-1] && new_s[j] != '0')
+            {
+                res += new_s[j];
+            }
+        }
+        res = res + "0000";
+        return res.substring(0, 4);
+        
+        
+    }
+}
